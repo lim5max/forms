@@ -1,9 +1,20 @@
-import { NextResponse } from 'next/server';
-import { NextRequest } from 'next/server';
-export function middleware(request) {
-    if (request.nextUrl.pathname.startsWith('/')) {
-        const response = NextResponse.next()
-        response.cookies.set('vercel', 'fast')
-        return response
-    }
-}
+// export { default } from "next-auth/middleware";
+
+// export const config = { matcher: ["/dashboard/:path*"] };
+import { withAuth } from "next-auth/middleware";
+
+export default withAuth(
+	// `withAuth` augments your `Request` with the user's token.
+	function middleware(req) {
+		// console.log(req.nextauth.token);
+	},
+	{
+		callbacks: {
+			authorized: ({ token }) => token?.role === "admin",
+		},
+	}
+);
+
+export const config = {
+	matcher: ["/admin/:path*", "/api/create/:path*", "/api/delete/:path*"],
+};
