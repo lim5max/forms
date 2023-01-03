@@ -21,7 +21,7 @@ export default function Layout({ children }) {
 		>
 			<header className=" py-4 copy">
 				<nav className=" flex justify-between items-center">
-					<Link href="/" replace>
+					<Link href="/" passHref replace>
 						<svg
 							className="w-10 h-10 fill-neutral-800 stroke-neutral-900"
 							viewBox="0 0 24 24"

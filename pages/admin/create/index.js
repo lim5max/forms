@@ -15,7 +15,7 @@ export default function CreatePoll() {
 	const addPollCard = usePollStore((state) => state.addPollCard);
 	const resetStore = usePollStore((state) => state.resetStore);
 	let [isOpen, setIsOpen] = useState(false);
-	console.log(usePollStore())
+	console.log(usePollStore());
 	function consolePoll() {
 		console.log(state);
 	}
@@ -28,7 +28,7 @@ export default function CreatePoll() {
 		});
 		if (data.status === 200) {
 			setIsOpen(false);
-			resetStore()
+			resetStore();
 			router.push("/admin/");
 		} else {
 			alert("Ошибка");
@@ -101,12 +101,12 @@ export default function CreatePoll() {
 									Публикация опроса
 								</DialogPrimitive.Title>
 								<DialogPrimitive.Description className="mt-2 text-md font-normal text-neutral-600 ">
-									Нажимая кнопку 'Сохранить' вы даете согласие
-									на публицаю вашего опроса в сети, убедитесь
-									в корректности введенных данных. <br />{" "}
-									Cтатистику по каждому опросу в отдельности
-									можно посмотреть в личном кабинете в любое
-									удобное время 😃
+									Нажимая кнопку &apos;Сохранить&apos; вы
+									даете согласие на публицаю вашего опроса в
+									сети, убедитесь в корректности введенных
+									данных. <br /> Cтатистику по каждому опросу
+									в отдельности можно посмотреть в личном
+									кабинете в любое удобное время 😃
 								</DialogPrimitive.Description>
 								<div className="mt-4 flex justify-end">
 									<DialogPrimitive.Close
