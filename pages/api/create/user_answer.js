@@ -1,5 +1,7 @@
 // import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import cuid from "cuid";
+import prisma from "../../../lib/prismadb";
+
 export default async function CreatePoll(req, res) {
 	if (req.method === "POST") {
 		console.log(req.body);

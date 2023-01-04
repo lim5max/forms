@@ -5,6 +5,7 @@ import cx from "classnames";
 import PollUserRadioCard from "../../components/Poll/PollUserCard/PollUserRadioCard";
 import PollUserMultipleCard from "../../components/Poll/PollUserCard/PollUserMultipleCard";
 import { useRouter } from "next/router";
+import prisma from "../../lib/prismadb";
 function PollPage({ poll, pollCards }) {
 	const initializeStore = usePollUserStore((state) => state.initializeStore);
 	initializeStore(poll.id, pollCards);
@@ -61,15 +62,10 @@ function PollPage({ poll, pollCards }) {
 					{pollCards.map((pollCard, index) => (
 						<div key={index}>
 							{pollCard.optionsType === "radio" && (
-								<PollUserRadioCard
-									
-									pollCard={pollCard}
-								/>
+								<PollUserRadioCard pollCard={pollCard} />
 							)}
 							{pollCard.optionsType === "multiple" && (
-								<PollUserMultipleCard
-									pollCard={pollCard}
-								/>
+								<PollUserMultipleCard pollCard={pollCard} />
 							)}
 						</div>
 					))}

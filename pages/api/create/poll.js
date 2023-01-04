@@ -2,6 +2,8 @@
 import cuid from "cuid";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import prisma from "../../../lib/prismadb";
+
 export default async function CreatePoll(req, res) {
 	const session = await unstable_getServerSession(req, res, authOptions);
 	//

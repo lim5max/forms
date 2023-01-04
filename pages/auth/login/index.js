@@ -41,7 +41,7 @@ export default function AuthPage({ csrfToken }) {
 			if (ok) {
 				setError(false);
 				router.push("/admin");
-			}else {
+			} else {
 				setError(true);
 			}
 		});
@@ -119,7 +119,11 @@ export default function AuthPage({ csrfToken }) {
 						</div>
 					</div>
 					<div className="mb-4 ">
-						{error &&  (<p className="text-pink-400">Ошибка 😣, проверьте коррекность введнных данных</p>)}
+						{error && (
+							<p className="text-pink-400">
+								Ошибка 😣, проверьте коррекность введнных данных
+							</p>
+						)}
 					</div>
 					<div className="flex items-center justify-between">
 						<button

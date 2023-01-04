@@ -13,13 +13,14 @@ import {
 	Cross2Icon,
 } from "@radix-ui/react-icons";
 import { getSession } from "next-auth/react";
+
 import Tooltip from "../../components/Reusable/Tooltip/Tooltip";
 function AdminPage({ polls }) {
 	const router = useRouter();
 	const [parsedPolls, setPolls] = useState(polls);
 	console.log(polls);
 	const [loading, setLoading] = useState(false);
-	// updated polls on delete then refetch 
+	// updated polls on delete then refetch
 	let handleDeletePoll = async (pollId) => {
 		setLoading(true);
 		const res = await fetch("/api/delete/poll", {
@@ -27,7 +28,7 @@ function AdminPage({ polls }) {
 			body: pollId,
 		});
 		if (res.status === 200) {
-			const updatedPolls = await res.json()
+			const updatedPolls = await res.json();
 			console.log(updatedPolls, "mapped");
 			setPolls(updatedPolls);
 			setLoading(false);
@@ -62,7 +63,8 @@ function AdminPage({ polls }) {
 			</div>
 
 			<div className="flex flex-col space-y-4 lg:mt-6 mt-4">
-				{!loading && parsedPolls &&
+				{!loading &&
+					parsedPolls &&
 					parsedPolls.map((poll) => {
 						return (
 							<div

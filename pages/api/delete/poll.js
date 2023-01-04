@@ -1,6 +1,7 @@
 // import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import prisma from "../../../lib/prismadb";
 
 export default async function DeletePollById(req, res) {
 	// 	const supabase = createServerSupabaseClient({ req, res });
@@ -20,8 +21,8 @@ export default async function DeletePollById(req, res) {
 			where: {
 				poll: {
 					id: pollId,
-				}
-			}
+				},
+			},
 		});
 		await prisma.pollCard.deleteMany({
 			where: {
@@ -41,10 +42,9 @@ export default async function DeletePollById(req, res) {
 			},
 		});
 		return res.status(200).json(polls);
-
 	} catch (e) {
 		console.log(e);
-		
+
 		return res.status(400).json(false);
 	}
 
