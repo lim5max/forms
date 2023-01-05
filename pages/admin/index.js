@@ -1,6 +1,7 @@
 //create simple admin page with button create poll
 // import link frin next/link
 import prisma from "../../lib/prismadb";
+import * as XLSX from "xlsx";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,7 +14,7 @@ import {
 	Cross2Icon,
 } from "@radix-ui/react-icons";
 import { getSession } from "next-auth/react";
-
+import Loader from "../../components/Reusable/Loader/Loader";
 import Tooltip from "../../components/Reusable/Tooltip/Tooltip";
 function AdminPage({ polls }) {
 	const router = useRouter();
@@ -48,8 +49,27 @@ function AdminPage({ polls }) {
 			}, 1000);
 		}
 	}
+	async function handleDownloadStatistics(pollId) {
+		setLoading(true);
+		const res = await fetch("/api/download/poll", {
+			method: "POST",
+			body: pollId,
+		});
+		if (res.status === 200) {
+			const data = await res.json();
+			console.log(data);
+			const worksheet = XLSX.utils.json_to_sheet(data.dataXLSX);
+			const workbook = XLSX.utils.book_new();
+			XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+			//let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
+			//XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
+			XLSX.writeFile(workbook, "Statistics.xlsx");
+			setLoading(false);
+		}
+	}
 	return (
 		<div>
+			{loading && <Loader />}
 			<div className="w-full flex justify-end">
 				<div className="flex items-center space-x-2 ml-auto">
 					<span className="block text-3xl">👉</span>
@@ -92,7 +112,12 @@ function AdminPage({ polls }) {
 										</span>
 										<Share1Icon className="w-6 h-6" />
 									</button>
-									<button className="flex items-center p-2 shadow border rounded active:scale-95 transition">
+									<button
+										className="flex items-center p-2 shadow border rounded active:scale-95 transition"
+										onClick={() =>
+											handleDownloadStatistics(poll.id)
+										}
+									>
 										<DownloadIcon className="w-6 h-6" />
 									</button>
 									<button

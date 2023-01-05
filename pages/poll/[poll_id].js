@@ -14,7 +14,8 @@ function PollPage({ poll, pollCards }) {
 	async function handleSaveUserAnswers() {
 		saveUserAnswers();
 		initializeStore(poll.id, pollCards);
-		router.reload(window.location.pathname);
+		// router.reload(window.location.pathname)
+		router.replace("thanks/");
 	}
 	console.log(poll);
 	return (

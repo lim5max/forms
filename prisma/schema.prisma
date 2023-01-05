@@ -70,10 +70,11 @@ model PollCard {
 }
 
 model AnonymousUserAnwer {
-  id         String   @id @unique @default(cuid())
-  pollCardId Int
-  userAnswer String[]
-  pollId     String
-  pollCard   PollCard @relation(fields: [pollCardId], references: [id])
-  poll       Poll     @relation(fields: [pollId], references: [id])
+  id          String   @id @unique @default(cuid())
+  pollCardId  Int
+  userAnswer  String[]
+  pollId      String
+  userSession String?  @default("")
+  pollCard    PollCard @relation(fields: [pollCardId], references: [id])
+  poll        Poll     @relation(fields: [pollId], references: [id])
 }

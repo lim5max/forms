@@ -5,7 +5,14 @@ import prisma from "../../../lib/prismadb";
 export default async function CreatePoll(req, res) {
 	if (req.method === "POST") {
 		console.log(req.body);
+		const userSession = cuid();
 		for (let i = 0; i < req.body.pollCards.length; i++) {
+			let userAnswer = "";
+			if (req.body.pollCards[i].optionsType === "multiple") {
+				userAnswer = req.body.pollCards[i].userAnswers.slice(1);
+			} else {
+				userAnswer = req.body.pollCards[i].userAnswers;
+			}
 			try {
 				await prisma.anonymousUserAnwer.create({
 					data: {
@@ -19,7 +26,8 @@ export default async function CreatePoll(req, res) {
 								id: req.body.pollId,
 							},
 						},
-						userAnswer: req.body.pollCards[i].userAnswers.slice(1),
+						userAnswer: userAnswer,
+						userSession: userSession,
 					},
 				});
 			} catch (e) {

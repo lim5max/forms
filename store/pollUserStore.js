@@ -21,6 +21,7 @@ const store = (set) => ({
 					id: card.id,
 					options: card.options,
 					userAnswers: [-1],
+					optionsType: card.optionsType,
 				};
 			});
 		});
@@ -73,6 +74,7 @@ const store = (set) => ({
 				body: JSON.stringify({
 					pollId: state.pollId,
 					pollCards: state.pollCards,
+					userSession: generateRandomId(),
 				}),
 			});
 			const data = await response.json();
@@ -85,6 +87,10 @@ const store = (set) => ({
 		});
 	},
 });
+
+function generateRandomId() {
+	return Math.random().toString(36).substr(2, 12);
+}
 
 const usePollUserStore = create(immer(store));
 export default usePollUserStore;
