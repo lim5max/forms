@@ -30,7 +30,7 @@ export default function Layout({ children }) {
 						</svg>
 					</Link>
 					<ul className="space-x-4 lg:space-x-6 flex items-center w-fit ml-auto">
-						<li>
+						{/* <li>
 							<Link
 								href="changelog"
 								className="font-semibold text-xl"
@@ -38,7 +38,7 @@ export default function Layout({ children }) {
 							>
 								Changelog
 							</Link>
-						</li>
+						</li> */}
 						<li>
 							{loggedIn ? (
 								<Menu></Menu>
