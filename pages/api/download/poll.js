@@ -6,14 +6,15 @@ import prisma from "../../../lib/prismadb";
 export default async function handleDownloadStatistics(req, res) {
 	//
 	let dataXLSX = [{}];
-
+	// console.log(req.body.pollId)
+	let body = JSON.parse(req.body);
 	if (req.method === "POST") {
 		let row = {};
 		try {
 			const data = await prisma.pollCard.findMany({
 				where: {
 					poll: {
-						id: req.body.pollId,
+						id: body.pollId,
 					},
 				},
 			});

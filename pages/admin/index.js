@@ -50,20 +50,25 @@ function AdminPage({ polls }) {
 		}
 	}
 	async function handleDownloadStatistics(pollId) {
+		console.log(pollId);
 		setLoading(true);
 		const res = await fetch("/api/download/poll", {
 			method: "POST",
-			body: pollId,
+			body: JSON.stringify({ pollId: pollId }),
 		});
 		if (res.status === 200) {
 			const data = await res.json();
+			let date = new Date();
+			let local = new Date(date);
+			local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+			let strDate = local.toJSON().slice(0, 10);
 			console.log(data);
-			const worksheet = XLSX.utils.json_to_sheet(data.dataXLSX);
-			const workbook = XLSX.utils.book_new();
+			let worksheet = XLSX.utils.json_to_sheet(data.dataXLSX);
+			let workbook = XLSX.utils.book_new();
 			XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
 			//let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
 			//XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
-			XLSX.writeFile(workbook, "Statistics.xlsx");
+			XLSX.writeFile(workbook, `Statistics_${strDate}.xlsx`);
 			setLoading(false);
 		}
 	}
