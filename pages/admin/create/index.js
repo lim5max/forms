@@ -39,7 +39,8 @@ export default function CreatePoll() {
 			<DialogPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
 				<div className="w-full flex items-center justify-end mb-4">
 					<DialogPrimitive.Trigger asChild>
-						<button className="flex items-center p-2 shadow border rounded active:scale-95 transition">
+						<button className="flex items-center p-2 space-x-2 shadow border rounded active:scale-95 transition">
+							<span>Опубликовать</span>
 							<Share2Icon className="w-6 h-6" />
 						</button>
 					</DialogPrimitive.Trigger>
@@ -56,7 +57,7 @@ export default function CreatePoll() {
 					onClick={addPollCard}
 				>
 					<span className="text-sm font-medium transition-opacity group-hover:opacity-0">
-						Карточка с ответами
+						Добавить карточку
 					</span>
 					<span className="absolute text-3xl inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
 						+
