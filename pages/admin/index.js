@@ -97,14 +97,17 @@ function AdminPage({ polls }) {
 								className="flex flex-col items-center justify-center p-4 mx-auto w-full lg:w-2/3 shadow-xl border-neutral-300 shadow-neutral-200 rounded-2xl "
 							>
 								<div className="w-full flex items-center justify-end mb-4 space-x-3">
-									<button
-										className="flex items-center p-2 shadow border rounded active:scale-95 transition"
-										onClick={() =>
-											router.push(`/poll/${poll.id}`)
-										}
-									>
-										<EyeOpenIcon className="w-6 h-6" />
-									</button>
+									<Tooltip text="Перейти на страницу опроса">
+										<button
+											className="flex items-center p-2 shadow border rounded active:scale-95 transition"
+											onClick={() =>
+												router.push(`/poll/${poll.id}`)
+											}
+										>
+											<EyeOpenIcon className="w-6 h-6" />
+										</button>
+									</Tooltip>
+									<Tooltip text="Скопировать ссылку на опрос">
 									<button
 										className="flex items-center p-2 shadow border rounded active:scale-95 transition relative"
 										onClick={() => handleCopy(poll.id)}
@@ -117,6 +120,8 @@ function AdminPage({ polls }) {
 										</span>
 										<Share1Icon className="w-6 h-6" />
 									</button>
+									</Tooltip>
+									<Tooltip text="Скачать статистику">
 									<button
 										className="flex items-center p-2 shadow border rounded active:scale-95 transition"
 										onClick={() =>
@@ -125,6 +130,8 @@ function AdminPage({ polls }) {
 									>
 										<DownloadIcon className="w-6 h-6" />
 									</button>
+									</Tooltip>
+									<Tooltip text="Удалить опрос">
 									<button
 										onClick={() =>
 											handleDeletePoll(poll.id)
@@ -133,6 +140,8 @@ function AdminPage({ polls }) {
 									>
 										<Cross2Icon className="w-6 h-6 text-white" />
 									</button>
+									</Tooltip>
+
 								</div>
 								<h1 className="text-3xl font-medium w-full text-left mb-12 block mt-4">
 									{poll.title}
