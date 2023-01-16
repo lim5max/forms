@@ -20,7 +20,7 @@
     "@radix-ui/react-popover": "^1.0.2",
     "@radix-ui/react-radio-group": "^1.1.0",
     "@radix-ui/react-toast": "^1.1.2",
-    "@react-aria/button": "^3.6.3",
+    "@react-aria/button": "^3.6.4",
     "canvas-confetti": "^1.6.0",
     "classnames": "^2.3.2",
     "cuid": "^2.1.8",
