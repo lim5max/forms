@@ -3,7 +3,7 @@ import create from "zustand";
 import produce from "immer";
 const immer = (config) => (set, get) => config((fn) => set(produce(fn)), get);
 
-const store = (set) => ({
+const store = (set,get) => ({
 	pollId: null,
 	pollCards: [],
 	resetStore: () => {
@@ -20,11 +20,20 @@ const store = (set) => ({
 				return {
 					id: card.id,
 					options: card.options,
+					required: card.required,
 					userAnswers: [-1],
 					optionsType: card.optionsType,
 				};
 			});
 		});
+	},
+	checkAllCardForRequiredFields: () => {
+		let pollCards = get().pollCards
+		for (let i = 0; i < pollCards.length; i++) {
+			if (pollCards[i].userAnswers === -1  || (pollCards[i].userAnswers[0] === -1 && pollCards[i].userAnswers.length === 1)) {
+				return true
+			}else return false
+		}
 	},
 	updatePollCardOption: (pollCardId, optionId, option) => {
 		set((state) => {

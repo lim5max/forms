@@ -37,6 +37,7 @@ const store = (set) => ({
 			state.pollCards.push({
 				id: generateId(),
 				question: "",
+				required: false,
 				optionsType: "radio",
 				options: [
 					{
@@ -52,6 +53,15 @@ const store = (set) => ({
 			state.pollCards = state.pollCards.filter(
 				(pollCard) => pollCard.id !== id
 			);
+		});
+	},
+	setPollCardRequired: (pollCardId, required) => {
+		set((state) => {
+			const pollCardIndex = state.pollCards.findIndex(
+				(card) => card.id === pollCardId
+			);
+
+			state.pollCards[pollCardIndex].required = required;
 		});
 	},
 	updatePollCardQuestion: (pollCardId, question) => {

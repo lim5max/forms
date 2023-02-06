@@ -1,6 +1,8 @@
 import { memo, useState } from "react";
 import cx from "classnames";
 import * as Checkbox from "@radix-ui/react-checkbox";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+
 import usePollUserStore from "../../../store/pollUserStore";
 const PollUserMultipleCard = ({ pollCard }) => {
 	// const [radioOption, setRadioOption] = useState(null);
@@ -22,7 +24,7 @@ const PollUserMultipleCard = ({ pollCard }) => {
 	console.log(state);
 	return (
 		<div
-			className="flex flex-col space-y-2 px-8 py-4 bg-white border-4 border-black "
+			className="relative flex  flex-col space-y-2 px-8 py-4 bg-white border-4 border-black "
 			style={{
 				boxShadow: "3px 3px 0px black",
 			}}
@@ -35,7 +37,15 @@ const PollUserMultipleCard = ({ pollCard }) => {
 			>
 				{pollCard.question}
 			</h3>
-
+			<div>
+				{pollCard.required && (
+					<div className="absolute right-1 top-1 flex  rounded-2xl  p-2 items-center justify-center"
+					>
+						<ExclamationTriangleIcon className="w-6 h-6 text-rose-600"
+						/>
+					</div>
+				)}
+			</div>
 			<ul className="flex flex-col space-y-2">
 				{pollCard.options.map((option, index) => (
 					<li className="flex items-center space-x-4" key={index}>

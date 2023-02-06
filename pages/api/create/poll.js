@@ -27,7 +27,9 @@ export default async function CreatePoll(req, res) {
 			for (let i = 0; i < store.pollCards.length; i++) {
 				const card = store.pollCards[i];
 				// get only option from options array and create new one
-				let options = card.options.map((option) => option.option.trim());
+				let options = card.options.map((option) =>
+					option.option.trim()
+				);
 				if (options[options.length - 1] === "") {
 					console.log(1);
 					options = options.slice(0, -1);
@@ -36,7 +38,7 @@ export default async function CreatePoll(req, res) {
 					data: {
 						index: i,
 						question: card.question,
-						required: false,
+						required: card.required,
 						optionsType: card.optionsType,
 						options: options,
 						poll: {

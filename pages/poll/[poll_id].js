@@ -1,22 +1,33 @@
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import usePollUserStore from "../../store/pollUserStore";
+import { ToastContainer, toast } from 'react-toastify';
 import cx from "classnames";
 import PollUserRadioCard from "../../components/Poll/PollUserCard/PollUserRadioCard";
 import PollUserMultipleCard from "../../components/Poll/PollUserCard/PollUserMultipleCard";
 import { useRouter } from "next/router";
+import 'react-toastify/dist/ReactToastify.css';
 import prisma from "../../lib/prismadb";
 function PollPage({ poll, pollCards }) {
 	const initializeStore = usePollUserStore((state) => state.initializeStore);
 	initializeStore(poll.id, pollCards);
 	const router = useRouter();
+	const notify = () => toast.error("Проверьте, что вы ответили на обязательные вопросы");
+
 	const saveUserAnswers = usePollUserStore((state) => state.saveUserAnswers);
 	async function handleSaveUserAnswers() {
-		saveUserAnswers();
-		initializeStore(poll.id, pollCards);
+		let error = checkAllCardForRequiredFields()
+		if (!error) {
+			saveUserAnswers();
+			initializeStore(poll.id, pollCards);
+			router.replace("thanks/");
+		} else {
+			notify()
+		}
+		
 		// router.reload(window.location.pathname)
-		router.replace("thanks/");
 	}
+	const checkAllCardForRequiredFields = usePollUserStore((state) => state.checkAllCardForRequiredFields)
 	console.log(poll);
 	return (
 		<main className="overflow-hidden max-w-screen bg-[#f8edde] min-h-screen text-black font-montserrat subpixel-antialiased pb-8 md:px-0 ">
@@ -81,6 +92,18 @@ function PollPage({ poll, pollCards }) {
 					Отправить
 				</button>
 			</div>
+			<ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
 		</main>
 	);
 }

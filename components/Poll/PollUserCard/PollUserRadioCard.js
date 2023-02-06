@@ -2,6 +2,8 @@ import { memo, useState } from "react";
 import cx from "classnames";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import usePollUserStore from "../../../store/pollUserStore";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+
 const PollUserRadioCard = ({ pollCard }) => {
 	// const [radioOption, setRadioOption] = useState(null);
 
@@ -15,11 +17,20 @@ const PollUserRadioCard = ({ pollCard }) => {
 	console.log(state);
 	return (
 		<div
-			className="flex flex-col space-y-2 px-8 py-4 bg-white border-4 border-black "
+			className="flex relative flex-col space-y-2 px-8 py-4 bg-white border-4 border-black "
 			style={{
 				boxShadow: "3px 3px 0px black",
 			}}
 		>
+			<div>
+				{pollCard.required && (
+					<div className="absolute right-1 top-1 flex  rounded-2xl  p-2 items-center justify-center"
+					>
+						<ExclamationTriangleIcon className="w-6 h-6 text-rose-600"
+						/>
+					</div>
+				)}
+			</div>
 			<h3
 				className="text-2xl font-bold "
 				style={{
